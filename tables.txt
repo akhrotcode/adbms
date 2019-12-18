@@ -1,0 +1,49 @@
+create table dept(
+deptno number GENERATED ALWAYS as IDENTITY(START with 1000 INCREMENT by 1) NOT NULL,
+dname varchar2(10),
+loc varchar2(20),
+CONSTRAINT dept_pk PRIMARY KEY (deptno)
+);
+
+
+
+create table emp(
+empno number GENERATED ALWAYS as IDENTITY(START with 100 INCREMENT by 1) NOT NULL,
+ename varchar2(10),
+phoneno number(11),
+address varchar2(20),
+deptno number,
+CONSTRAINT emp_pk PRIMARY KEY (empno),
+CONSTRAINT dept_fk
+    FOREIGN KEY (deptno)
+    REFERENCES dept(deptno)
+);
+
+create table attendance(
+sno number GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1) NOT NULL,
+status varchar2(8) NOT NULL,
+att_date timestamp(0),
+reason varchar2(30),
+empno number,
+CONSTRAINT attendance_pk PRIMARY KEY (sno),
+CONSTRAINT emp_att_fk
+    FOREIGN KEY (empno)
+    REFERENCES emp(empno)
+);
+
+create table salary(
+amount number NOT NULL,
+date_from varchar2(10) NOT NULL,
+date_to varchar2(10) NOT NULL,
+empno number,
+CONSTRAINT salary_pk PRIMARY KEY (empno,date_from),
+CONSTRAINT emp_fk
+    FOREIGN KEY (empno)
+    REFERENCES emp(empno)
+);
+
+create table dummy(
+a number ,
+b varchar2(10),
+c number(4,2)
+);
