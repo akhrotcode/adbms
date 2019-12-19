@@ -124,7 +124,6 @@ public class DataHelper {
         }
     }
     
-    
     public void updateData(String tableName,Object idCol,Object idVal, Object ...values){
         try {
             connection();
@@ -167,8 +166,7 @@ public class DataHelper {
         }
     }
     
-    
-     public boolean deleteData(String tableName, Object idCol, Object val){
+    public boolean deleteData(String tableName, Object idCol, Object val){
         try {
             connection();
             String query = "DELETE FROM " + tableName + " WHERE " + idCol + " = " + val;
@@ -189,5 +187,34 @@ public class DataHelper {
         }
         
     }
+     
+    public ResultSet getSpecData(String tableName, Object ...colNames){
+        try{
+            connection();
+            System.out.println("Number of Colomns: " + colNames.length);
+            System.out.println("Selecting Data...");
+            String cols = "", query = "";
+            System.out.println(colNames.length);
+            for(Object colName : colNames){
+                System.out.println("col Name: " + colName);
+                cols = cols.concat(colName + ",");
+            }
+            cols = cols.substring(0, cols.length()-1);
+            query = "SELECT * FROM "+ tableName +" where "+colNames[0]+ " = "+colNames[1];
+            
+            System.out.println(query);
+            ResultSet rs = stmt.executeQuery(query);            
+            return rs;
+            
+       
+    }
+        catch(Exception e){
+            System.err.println("DbHelper->Exception: " + e);
+        }
+        return null;
+    
+    }
+     
+     
     
 }
