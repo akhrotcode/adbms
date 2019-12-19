@@ -8,6 +8,8 @@ package DataAccess;
 import adbms.Emp;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
@@ -44,6 +46,38 @@ public class DataHelper {
         }
     }
     
+    public ResultSet getAllData(String tableName, Object ...colNames){
+        try{
+            connection();
+            System.out.println("Number of Colomns: " + colNames.length);
+            System.out.println("Selecting Data...");
+            String cols = "", query = "";
+            System.out.println(colNames.length);
+            for(Object colName : colNames){
+                System.out.println("col Name: " + colName);
+                cols = cols.concat(colName + ",");
+            }
+            cols = cols.substring(0, cols.length()-1);
+
+            if ("\0".equals(colNames[0])) {
+                query = "SELECT * FROM " + tableName;
+            }
+            else{
+                query = "SELECT " + cols + " FROM "+ tableName;
+            }
+            System.out.println(query);
+            ResultSet rs = stmt.executeQuery(query);            
+            return rs;
+            
+       
+    }
+        catch(Exception e){
+            System.err.println("DbHelper->Exception: " + e);
+        }
+        return null;
+    
+    }
+    
     public void insertAll(String tableName, Object ...values){
         try {
             connection();
@@ -62,8 +96,8 @@ public class DataHelper {
 
             String query = "INSERT INTO " +tableName+" VALUES "+cols_values;
             System.out.println(query);
-            String q = "INSERT INTO dummy VALUES (1,'fifa',34.22)";
-            int st = stmt.executeUpdate(q); // yaha error hadasd
+            
+            int st = stmt.executeUpdate(query); // yaha error hadasd
             
 
             // if query is executed.
@@ -91,16 +125,16 @@ public class DataHelper {
     }
     
     
-    public void updateData(String tableName,String idCol,String idVal, String ...values){
+    public void updateData(String tableName,Object idCol,Object idVal, Object ...values){
         try {
             connection();
             int count = values.length;
             System.out.println(String.valueOf(count));
-            LinkedList<String> cols = new LinkedList<>();
-            LinkedList<String> vals = new LinkedList<>();
+            LinkedList<Object> cols = new LinkedList<>();
+            LinkedList<Object> vals = new LinkedList<>();
             String query = "UPDATE " + tableName + " SET ";
             int i = 0;
-            for (String value: values) {
+            for (Object value: values) {
                 if (i%2 == 0) {
                     cols.add(value);
                 }
@@ -111,10 +145,10 @@ public class DataHelper {
                 i++;
             }
             for (int j = 0; j < cols.size(); j++) {
-                 query = query.concat(cols.get(j) + " = '" + vals.get(j) + "',");
+                 query = query.concat(cols.get(j) + " = " + vals.get(j) + ",");
             }
             query = query.substring(0, query.length()-1);
-            String whereClause = " WHERE "+ idCol + " = '" + idVal+ "'";
+            String whereClause = " WHERE "+ idCol + " = " + idVal;
             query = query.concat(whereClause);
             System.out.println(query);
             int st = stmt.executeUpdate(query);
@@ -131,6 +165,29 @@ public class DataHelper {
         } catch (Exception e) {
             System.out.println("DbHelper->Exception: "+e);
         }
+    }
+    
+    
+     public boolean deleteData(String tableName, Object idCol, Object val){
+        try {
+            connection();
+            String query = "DELETE FROM " + tableName + " WHERE " + idCol + " = " + val;
+            System.out.println(query);
+            int i = stmt.executeUpdate(query);
+            // if query is executed.
+            if (i>0) {
+                System.out.println("Data Successfully Deleted");
+                return true;
+            }
+            else{
+                System.out.println("Data Failed to Delete");
+            return false;
+            }
+        } catch (Exception e) {
+            System.err.println("DbHelper->Exception: "+e);
+            return false;
+        }
+        
     }
     
 }
