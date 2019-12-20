@@ -90,7 +90,7 @@ public class Display_attendence extends javax.swing.JFrame {
         btnDone_disAtt.setName("DoneBtn_checkattendance"); // NOI18N
         jPanel1.add(btnDone_disAtt, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 320, 90, -1));
         jPanel1.add(jLocaleChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, -1, -1));
-        jPanel1.add(clndr_DisAtt, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 30, 280, 190));
+        jPanel1.add(clndr_DisAtt, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 30, 330, 190));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 347));
 
@@ -98,8 +98,12 @@ public class Display_attendence extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearch_disAttActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch_disAttActionPerformed
-        JCalendar j = new JCalendar();
-        //String s = clndr_DisAtt.;
+        int day=clndr_DisAtt.getDayChooser().getDay();
+        int month=clndr_DisAtt.getMonthChooser().getMonth();
+        int year=clndr_DisAtt.getYearChooser().getYear();
+        String dateNow=year+"/"+month+"/"+day;
+        System.out.println(dateNow);
+         
     }//GEN-LAST:event_btnSearch_disAttActionPerformed
 
     /**
