@@ -73,6 +73,11 @@ public class Display_emp extends javax.swing.JFrame {
 
         btnDone_disEmp.setText("Submit");
         btnDone_disEmp.setName("submitBtn_empinfo"); // NOI18N
+        btnDone_disEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDone_disEmpActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnDone_disEmp, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 350, -1, -1));
 
         tbl_disEmp.setModel(new javax.swing.table.DefaultTableModel(
@@ -103,6 +108,11 @@ public class Display_emp extends javax.swing.JFrame {
         search(search);
         
     }//GEN-LAST:event_btnSearch_disEmpActionPerformed
+
+    private void btnDone_disEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDone_disEmpActionPerformed
+        new dashboard().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnDone_disEmpActionPerformed
 
     /**
      * @param args the command line arguments

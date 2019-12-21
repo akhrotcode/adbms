@@ -60,14 +60,13 @@ public class Display_attendence extends javax.swing.JFrame {
 
         tblAtt_disAtt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
         tblAtt_disAtt.setName("tbl_checkattendance"); // NOI18N
@@ -89,7 +88,12 @@ public class Display_attendence extends javax.swing.JFrame {
 
         btnDone_disAtt.setText("Done");
         btnDone_disAtt.setName("DoneBtn_checkattendance"); // NOI18N
-        jPanel1.add(btnDone_disAtt, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 320, 90, -1));
+        btnDone_disAtt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDone_disAttActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnDone_disAtt, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 320, 90, -1));
         jPanel1.add(jLocaleChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, -1, -1));
         jPanel1.add(clndr_DisAtt, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 30, 330, 190));
 
@@ -107,6 +111,11 @@ public class Display_attendence extends javax.swing.JFrame {
         search(dateNow);
          
     }//GEN-LAST:event_btnSearch_disAttActionPerformed
+
+    private void btnDone_disAttActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDone_disAttActionPerformed
+        new dashboard().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnDone_disAttActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,7 +171,7 @@ public class Display_attendence extends javax.swing.JFrame {
         System.out.println(atts);
         DefaultTableModel model = (DefaultTableModel) tblAtt_disAtt.getModel();
         model.setRowCount(0);
-        String[] empheader = {"SNO","STATUS","DATE","REASON","EMPNO"};
+        String[] empheader = {"STATUS","DATE","REASON","EMPNO"};
         
         for (int i = 0; i < empheader.length; i++) {
             TableColumn column1 = tblAtt_disAtt.getTableHeader().getColumnModel().getColumn(i);
@@ -170,7 +179,7 @@ public class Display_attendence extends javax.swing.JFrame {
         }
         for (int i = 0; i < atts.size(); i++) {
             
-            model.addRow(new Object[] {atts.get(i).getSno(), atts.get(i).getStatus(),atts.get(i).getAtt_date(),
+            model.addRow(new Object[] {atts.get(i).getStatus(),atts.get(i).getAtt_date(),
             atts.get(i).getReason(),atts.get(i).getEmpno()});
         }
     }
@@ -181,14 +190,14 @@ public class Display_attendence extends javax.swing.JFrame {
         System.out.println(atts);
         DefaultTableModel model = (DefaultTableModel) tblAtt_disAtt.getModel();
         model.setRowCount(0);
-        String[] empheader = {"SNO","STATUS","DATE","REASON","EMPNO"};
+        String[] empheader = {"STATUS","DATE","REASON","EMPNO"};
         
         for (int i = 0; i < empheader.length; i++) {
             TableColumn column1 = tblAtt_disAtt.getTableHeader().getColumnModel().getColumn(i);
             column1.setHeaderValue(empheader[i]);
         }
         for (int i = 0; i < atts.size(); i++) {
-            model.addRow(new Object[] {atts.get(i).getSno(), atts.get(i).getStatus(),atts.get(i).getAtt_date(),
+            model.addRow(new Object[] { atts.get(i).getStatus(),atts.get(i).getAtt_date(),
             atts.get(i).getReason(),atts.get(i).getEmpno()});
         }
     }

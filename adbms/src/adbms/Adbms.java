@@ -19,7 +19,10 @@ public class Adbms {
      */
     public static void main(String[] args) {
        
+        DataHelper dh = new DataHelper();
+        dh.getAllData("dummy","A","B");
         
+                
     }
 
    

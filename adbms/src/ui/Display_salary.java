@@ -136,7 +136,8 @@ public class Display_salary extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDone_disSalaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDone_disSalaryActionPerformed
-        // TODO add your handling code here:
+        new dashboard().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnDone_disSalaryActionPerformed
 
     private void btnSearch_disSalaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch_disSalaryActionPerformed
