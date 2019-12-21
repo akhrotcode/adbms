@@ -12,6 +12,7 @@ import com.toedter.calendar.JCalendar;
 import java.util.LinkedList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import static ui.Display_emp.isNumber;
 
 /**
  *
@@ -84,7 +85,7 @@ public class Display_attendence extends javax.swing.JFrame {
                 btnSearch_disAttActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSearch_disAtt, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 230, 60, 20));
+        jPanel1.add(btnSearch_disAtt, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 230, 60, 20));
 
         btnDone_disAtt.setText("Done");
         btnDone_disAtt.setName("DoneBtn_checkattendance"); // NOI18N
@@ -99,10 +100,11 @@ public class Display_attendence extends javax.swing.JFrame {
 
     private void btnSearch_disAttActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch_disAttActionPerformed
         int day=clndr_DisAtt.getDayChooser().getDay();
-        int month=clndr_DisAtt.getMonthChooser().getMonth();
+        int month=clndr_DisAtt.getMonthChooser().getMonth()+1;
         int year=clndr_DisAtt.getYearChooser().getYear();
-        String dateNow=year+"/"+month+"/"+day;
+        String dateNow=year+"-"+month+"-"+day;
         System.out.println(dateNow);
+        search(dateNow);
          
     }//GEN-LAST:event_btnSearch_disAttActionPerformed
 
@@ -168,6 +170,24 @@ public class Display_attendence extends javax.swing.JFrame {
         }
         for (int i = 0; i < atts.size(); i++) {
             
+            model.addRow(new Object[] {atts.get(i).getSno(), atts.get(i).getStatus(),atts.get(i).getAtt_date(),
+            atts.get(i).getReason(),atts.get(i).getEmpno()});
+        }
+    }
+
+    private void search(String date) {
+        
+        atts = da.getAllAttendance("ATTENDANCE","ATT_DATE","'"+date+"'");
+        System.out.println(atts);
+        DefaultTableModel model = (DefaultTableModel) tblAtt_disAtt.getModel();
+        model.setRowCount(0);
+        String[] empheader = {"SNO","STATUS","DATE","REASON","EMPNO"};
+        
+        for (int i = 0; i < empheader.length; i++) {
+            TableColumn column1 = tblAtt_disAtt.getTableHeader().getColumnModel().getColumn(i);
+            column1.setHeaderValue(empheader[i]);
+        }
+        for (int i = 0; i < atts.size(); i++) {
             model.addRow(new Object[] {atts.get(i).getSno(), atts.get(i).getStatus(),atts.get(i).getAtt_date(),
             atts.get(i).getReason(),atts.get(i).getEmpno()});
         }
